@@ -25,6 +25,7 @@ const useScrollReveal = () => {
 const App = () => {
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [scrolled, setScrolled] = useState(false);
+  const [showBackToTop, setShowBackToTop] = useState(false); // State untuk Back to Top
   
   // --- LOGIKA TEMA OTOMATIS ---
   const [isDark, setIsDark] = useState(() => {
@@ -47,7 +48,10 @@ const App = () => {
 
   useEffect(() => {
     const handleMouseMove = (e) => setMousePos({ x: e.clientX, y: e.clientY });
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+      setShowBackToTop(window.scrollY > 400); // Muncul setelah scroll 400px
+    };
     
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('scroll', handleScroll);
@@ -56,6 +60,10 @@ const App = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const projects = [
     {
@@ -104,9 +112,11 @@ const App = () => {
     <div className={`${isDark ? 'dark' : ''} transition-colors duration-500`}>
       <div className="min-h-screen bg-slate-50 dark:bg-[#121212] text-slate-900 dark:text-[#e2e8f0] font-sans selection:bg-blue-500/30 overflow-x-hidden transition-colors duration-500">
         
-        <div className="fixed inset-0 z-0 pointer-events-none opacity-0 dark:opacity-20 transition-opacity duration-700 hidden md:block" style={{ background: `radial-gradient(circle 600px at ${mousePos.x}px ${mousePos.y}px, rgba(30, 58, 138, 0.1), transparent 80%)` }} />
+        {/* Glow Effect (Desktop Only) */}
+        <div className="fixed inset-0 z-0 pointer-events-none opacity-0 dark:opacity-20 transition-opacity duration-700 hidden md:block" style={{ background: `radial-gradient(circle 600px at ${mousePos.x}px ${mousePos.y}px, rgba(30, 58, 138, 0.12), transparent 80%)` }} />
 
-        <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'py-2 md:py-4 bg-white/80 dark:bg-[#1a1a1a]/95 backdrop-blur-md border-b border-black/5 dark:border-white/5 shadow-2xl' : 'py-4 md:py-8'}`}>
+        {/* NAVIGATION */}
+        <nav className={`fixed top-0 w-full z-50 transition-all duration-700 ${scrolled ? 'py-3 md:py-4 bg-white/80 dark:bg-[#1a1a1a]/95 backdrop-blur-md border-b border-black/5 dark:border-white/5 shadow-2xl' : 'py-4 md:py-8'}`}>
           <div className="container mx-auto px-6 md:px-16 flex justify-between items-center max-w-7xl">
             <div className="text-xs md:text-sm font-bold tracking-[0.4em] text-slate-900 dark:text-white uppercase">FARROS<span className="text-blue-600">.</span>ILMAN</div>
             <div className="flex items-center gap-4 md:gap-10">
@@ -114,7 +124,7 @@ const App = () => {
                 <a href="#work" className="hover:text-blue-600 dark:hover:text-white transition-colors">Works</a>
                 <a href="#about" className="hover:text-blue-600 dark:hover:text-white transition-colors">Story</a>
                 <a href="#awards" className="hover:text-blue-600 dark:hover:text-white transition-colors">Awards</a>
-                <a href="#contact" className="hover:text-blue-600 dark:hover:text-white transition-colors">Contact</a>
+                <a href="mailto:rosilman000@gmail.com" className="hover:text-blue-600 dark:hover:text-white transition-colors">Contact</a>
               </div>
               <button onClick={toggleTheme} className="p-2 rounded-full bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 hover:scale-110 transition-all cursor-pointer">{isDark ? '☀️' : '🌙'}</button>
             </div>
@@ -124,7 +134,6 @@ const App = () => {
         {/* HERO SECTION */}
         <section className="pt-24 pb-12 md:pt-40 md:pb-24 flex flex-col justify-center px-6 md:px-16 relative h-auto max-w-7xl mx-auto">
           <div className="container mx-auto max-w-6xl">
-            {/* Grid System untuk Teks vs Foto */}
             <div className="grid lg:grid-cols-12 gap-12 items-center">
               
               {/* KOLOM TEKS */}
@@ -152,20 +161,15 @@ const App = () => {
                 </div>
               </div>
 
-              {/* KOLOM FOTO PROFIL */}
+              {/* KOLOM FOTO PROFIL (BENTUK NON-KOTAK/BLOB) */}
               <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in mb-6 md:mb-0">
                 <div className="relative">
-                  
-                  {/* Efek Pendaran Cahaya (Glow Background) */}
                   <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/30 to-cyan-400/20 blur-3xl animate-pulse opacity-50"></div>
                   
-                  {/* Kontainer Foto dengan Bentuk Blob/Organic */}
                   <div className="relative w-44 h-44 md:w-64 md:h-64 group">
                     <div className={`
                       w-full h-full overflow-hidden transition-all duration-[2000ms] ease-in-out
-                      /* Bentuk Default: Blob Organik */
                       rounded-[40%_60%_70%_30%/40%_50%_60%_40%] 
-                      /* Bentuk saat di-hover: berubah pelan */
                       group-hover:rounded-[60%_40%_30%_70%/60%_30%_70%_40%]
                       border-2 border-white/10 dark:border-white/5 shadow-2xl
                     `}>
@@ -176,13 +180,13 @@ const App = () => {
                       />
                     </div>
 
-                    {/* Floating Status Badge */}
-                    <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-md p-2 md:p-3 rounded-2xl border border-white/10 shadow-xl flex items-center gap-2 animate-bounce">
+                    {/* Floating Status Badge (Mental-mental Bounce) */}
+                    <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-white/90 dark:bg-[#1a1a1a]/90 backdrop-blur-md p-2 md:p-3 rounded-2xl border border-black/5 dark:border-white/10 shadow-xl flex items-center gap-2 animate-bounce">
                       <span className="relative flex h-2 w-2">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
                       </span>
-                      <span className="text-[7px] md:text-[9px] font-bold uppercase tracking-widest text-slate-500">Available</span>
+                      <span className="text-[7px] md:text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-300 text-nowrap">Available Now</span>
                     </div>
                   </div>
                 </div>
@@ -192,7 +196,7 @@ const App = () => {
           </div>
         </section>
 
-        {/* WORKS SECTION - Semua karya dikembalikan di sini */}
+        {/* WORKS SECTION */}
         <section id="work" className="py-12 md:py-24 border-t border-black/5 dark:border-white/5">
           <div className="container mx-auto px-6 md:px-16 max-w-6xl">
             <div className="flex items-baseline justify-between mb-10 md:mb-24">
@@ -264,6 +268,22 @@ const App = () => {
             <div className="text-[8px] md:text-[9px] font-mono text-slate-500 dark:text-slate-300 uppercase tracking-widest">STABILITY & SECURITY DRIVEN</div>
           </div>
         </footer>
+
+        {/* BACK TO TOP BUTTON */}
+        <button
+          onClick={scrollToTop}
+          className={`fixed bottom-8 right-8 z-[60] p-4 rounded-2xl bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/10 shadow-2xl transition-all duration-500 group overflow-hidden ${
+            showBackToTop ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0 pointer-events-none'
+          }`}
+        >
+          <div className="absolute inset-0 bg-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div className="relative z-10 flex flex-col items-center gap-1">
+            <svg viewBox="0 0 24 24" className="w-5 h-5 text-blue-600 dark:text-blue-400 group-hover:-translate-y-1 transition-transform duration-300" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <polyline points="18 15 12 9 6 15"></polyline>
+            </svg>
+            <span className="text-[7px] font-black uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 text-nowrap">Top</span>
+          </div>
+        </button>
 
         <style dangerouslySetInnerHTML={{ __html: `
           @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap');
