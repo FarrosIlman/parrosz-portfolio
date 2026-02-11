@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+/* Mendaftarkan varian dark mode manual untuk v4 */
+@variant dark (&:where(.dark, .dark *));
+
+/* Tambahkan transisi global agar perpindahan tema halus */
+:root {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
