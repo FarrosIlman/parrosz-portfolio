@@ -170,7 +170,7 @@ const App = () => {
                       border-2 border-white/10 dark:border-white/5 shadow-2xl
                     `}>
                       <img 
-                        src="/me.jpg" 
+                        src="/me.webp" 
                         alt="Farros Profil" 
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100" 
                       />
