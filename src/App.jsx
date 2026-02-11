@@ -197,7 +197,7 @@ const App = () => {
             <h3 className="text-[10px] font-bold uppercase tracking-[0.5em] text-blue-600 mb-10 md:mb-16">Honors & Achievements</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               <Award icon="🏆" title="Juara 2 LKS IT Software" rank="Kota Pekalongan (2021)" />
-              <Award icon="📱" title="Juara 2 Mobile Challenge" rank="Nasional (2020)" />
+              <Award icon="📱" title="Juara 2 Mobile Challenge" rank="SMKDEV (2020)" />
               <Award icon="🥉" title="Juara 3 LKS IT App" rank="Kota Pekalongan (2020)" />
             </div>
           </div>
