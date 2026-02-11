@@ -123,27 +123,71 @@ const App = () => {
 
         {/* HERO SECTION */}
         <section className="pt-24 pb-12 md:pt-40 md:pb-24 flex flex-col justify-center px-6 md:px-16 relative h-auto max-w-7xl mx-auto">
-          <div className="max-w-4xl">
-            <div className="inline-flex items-center gap-3 mb-4 md:mb-8 animate-fade-in">
-              <span className="w-6 md:w-8 h-px bg-blue-600"></span>
-              <span className="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-blue-500 font-bold">Digital Architect & Specialist</span>
-            </div>
-            <h1 className="text-4xl sm:text-6xl md:text-[5.5rem] font-black text-slate-900 dark:text-white leading-[1.1] md:leading-[1] tracking-tighter mb-6 md:mb-10 animate-fade-in-up">
-              Membangun <br className="hidden sm:block" /> 
-              Ekosistem <span className="italic font-light serif text-slate-400 dark:text-slate-500 text-3xl sm:text-5xl md:text-7xl">Teknologi Terpadu.</span>
-            </h1>
-            <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-              <p className="text-sm md:text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed font-light">Junior Front-End & Android Developer yang berdedikasi menciptakan solusi digital yang efisien, stabil, dan berdampak nyata.</p>
-              <div className="flex gap-8 md:gap-10">
-                <div>
-                  <div className="text-lg md:text-xl font-bold dark:text-white">1000+</div>
-                  <div className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-500 font-bold">Active Users</div>
+          <div className="container mx-auto max-w-6xl">
+            {/* Grid System untuk Teks vs Foto */}
+            <div className="grid lg:grid-cols-12 gap-12 items-center">
+              
+              {/* KOLOM TEKS */}
+              <div className="lg:col-span-8 order-2 lg:order-1">
+                <div className="inline-flex items-center gap-3 mb-4 md:mb-8 animate-fade-in">
+                  <span className="w-6 md:w-8 h-px bg-blue-600"></span>
+                  <span className="text-[8px] md:text-[10px] uppercase tracking-[0.4em] text-blue-500 font-bold">Digital Architect & Specialist</span>
                 </div>
-                <div>
-                  <div className="text-lg md:text-xl font-bold dark:text-white">5+</div>
-                  <div className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-500 font-bold">Years Obsession</div>
+                <h1 className="text-4xl sm:text-6xl md:text-[5.5rem] font-black text-slate-900 dark:text-white leading-[1.1] md:leading-[1] tracking-tighter mb-6 md:mb-10 opacity-0 animate-fade-in-up">
+                  Membangun <br className="hidden sm:block" /> 
+                  Ekosistem <span className="italic font-light serif text-slate-400 dark:text-slate-500 text-3xl sm:text-5xl md:text-7xl">Teknologi Terpadu.</span>
+                </h1>
+                <div className="flex flex-col md:flex-row gap-6 md:gap-12 items-start opacity-0 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+                  <p className="text-sm md:text-lg text-slate-600 dark:text-slate-400 max-w-lg leading-relaxed font-light">Junior Front-End & Android Developer yang berdedikasi menciptakan solusi digital yang efisien, stabil, dan berdampak nyata.</p>
+                  <div className="flex gap-8 md:gap-10">
+                    <div>
+                      <div className="text-lg md:text-xl font-bold dark:text-white">1000+</div>
+                      <div className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-500 font-bold">Active Users</div>
+                    </div>
+                    <div>
+                      <div className="text-lg md:text-xl font-bold dark:text-white">5+</div>
+                      <div className="text-[8px] md:text-[9px] uppercase tracking-widest text-slate-500 font-bold">Years Obsession</div>
+                    </div>
+                  </div>
                 </div>
               </div>
+
+              {/* KOLOM FOTO PROFIL */}
+              <div className="lg:col-span-4 order-1 lg:order-2 flex justify-center lg:justify-end animate-fade-in mb-6 md:mb-0">
+                <div className="relative">
+                  
+                  {/* Efek Pendaran Cahaya (Glow Background) */}
+                  <div className="absolute -inset-4 bg-gradient-to-tr from-blue-600/30 to-cyan-400/20 blur-3xl animate-pulse opacity-50"></div>
+                  
+                  {/* Kontainer Foto dengan Bentuk Blob/Organic */}
+                  <div className="relative w-44 h-44 md:w-64 md:h-64 group">
+                    <div className={`
+                      w-full h-full overflow-hidden transition-all duration-[2000ms] ease-in-out
+                      /* Bentuk Default: Blob Organik */
+                      rounded-[40%_60%_70%_30%/40%_50%_60%_40%] 
+                      /* Bentuk saat di-hover: berubah pelan */
+                      group-hover:rounded-[60%_40%_30%_70%/60%_30%_70%_40%]
+                      border-2 border-white/10 dark:border-white/5 shadow-2xl
+                    `}>
+                      <img 
+                        src="/me.jpg" 
+                        alt="Farros Profil" 
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-1000 scale-110 group-hover:scale-100" 
+                      />
+                    </div>
+
+                    {/* Floating Status Badge */}
+                    <div className="absolute bottom-2 right-2 md:bottom-4 md:right-4 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-md p-2 md:p-3 rounded-2xl border border-white/10 shadow-xl flex items-center gap-2 animate-bounce">
+                      <span className="relative flex h-2 w-2">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                      </span>
+                      <span className="text-[7px] md:text-[9px] font-bold uppercase tracking-widest text-slate-500">Available</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
